@@ -21,20 +21,21 @@ function printTotalAmount() {
     console.log('Total amount is $' + amount + '.' );
 }
 
-function calculateAmountWithTax(amount) {
+function calculateAmountWithTax() {
     amount = amount + (amount * TAX_RATE);
     return amount.toFixed(2);
 }
 
 while (amount < bankAccountBalance) {
     amount = amount + PHONE_PRICE;
-    console.log(calculateAmountWithTax(amount));
+    console.log(amount);
     if (amount < spendingTreshold) {
         amount = amount + ACCESSORY_PRICE;
-        calculateAmountWithTax(amount);
     }
     else {
         break;
     }
 }
+console.log(amount);
+console.log(calculateAmountWithTax());
 printTotalAmount();
