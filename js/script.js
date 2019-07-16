@@ -1,27 +1,40 @@
-const TAX_RATE, PHONE_PRICE, ACCESSORY_PRICE, SPENDING_TRESHOLD;
+'use strict'
 
-TAX_RATE = 0.08;
-PHONE_PRICE = 90;
-ACCESSORY_PRICE = 9;
-var amount;
+const TAX_RATE = 0.08;
+const PHONE_PRICE = 90;
+const ACCESSORY_PRICE = 9;
+var spendingTreshold, bankAccountBalance, amount;
+
 amount = 0;
 
-function printTreshold() {
-    console.log('Your spending treshold is ' + SPENDING_TRESHOLD);
+while (isNaN(spendingTreshold)) {
+    spendingTreshold = prompt('What is your spending treshold? ');
 }
+
+while (isNaN(bankAccountBalance)) {
+    bankAccountBalance = prompt('What is your bank account balance? ');
+}
+
+console.log('Your spending treshold is $' + spendingTreshold + ' and your bank account balance is $' + bankAccountBalance + '.')
 
 function printTotalAmount() {
-    console.log('Total amount is $' + PHONE_PRICE + '.' )
+    console.log('Total amount is $' + amount + '.' );
 }
 
-function calculateAmountWithTax() {
-    PHONE_PRICE = PHONE_PRICE + (PHONE_PRICE * TAX_RATE).toFixed(2);
-    return PHONE_PRICE;
+function calculateAmountWithTax(amount) {
+    amount = amount + (amount * TAX_RATE);
+    return amount.toFixed(2);
 }
-SPENDING_TRESHOLD = prompt('What is your spending treshold? ')
-BANK_ACCOUNT_BALANCE = prompt('What is your bank account balance? ')
-printTreshold();
-while (PHONE_PRICE < BANK_ACCOUNT_BALANCE) {
-    amount = calculateAmountWithTax()
 
+while (amount < bankAccountBalance) {
+    amount = amount + PHONE_PRICE;
+    console.log(calculateAmountWithTax(amount));
+    if (amount < spendingTreshold) {
+        amount = amount + ACCESSORY_PRICE;
+        calculateAmountWithTax(amount);
+    }
+    else {
+        break;
+    }
 }
+printTotalAmount();
